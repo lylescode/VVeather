@@ -78,19 +78,19 @@ class OverviewViewController: UITableViewController {
         tableView.layoutIfNeeded()
         
         let cells = tableView.visibleCells.sorted(by: { $0.frame.minY < $1.frame.minY })
-        let delayIncrease = 0.01
+        let delayIncrease = 0.015
         if cells.count > 0 {
             view.isUserInteractionEnabled = false
-            let duration = 0.55
+            let duration = 0.65
             var delay = 0.0
             for cell in cells {
                 let isLastCell = (cell == cells.last)
-                cell.transform = CGAffineTransform(translationX: 0, y: 400)
+                cell.transform = CGAffineTransform(translationX: 0, y: 800)
                 cell.alpha = 0
                 UIView.animate(withDuration: duration, delay: delay,
-                               usingSpringWithDamping: 0.85,
-                               initialSpringVelocity: 0.45,
-                               options: .curveEaseOut,
+                               usingSpringWithDamping: 0.9,
+                               initialSpringVelocity: 0.8,
+                               options: .curveLinear,
                                animations: {
                                 cell.alpha = 1
                                 cell.transform = .identity
