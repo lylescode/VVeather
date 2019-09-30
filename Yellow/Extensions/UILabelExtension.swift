@@ -15,8 +15,8 @@ extension UILabel {
         set {
             if newValue {
                 layer.shadowColor = self.textColor.cgColor
-                layer.shadowRadius = 3
-                layer.shadowOpacity = 0.17
+                layer.shadowRadius = 2
+                layer.shadowOpacity = 0.12
                 layer.shadowOffset = CGSize(width: 0, height: 2)
                 layer.masksToBounds = false
             } else {
