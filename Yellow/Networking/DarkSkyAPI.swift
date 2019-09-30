@@ -14,6 +14,9 @@ enum APIEnvironment {
 }
 
 struct DarkSkyAPI {
+
+    // 날씨 정보는 15분 마다 갱신되도록
+    static let updateTimeInterval: TimeInterval = 60 * 15
     static let baseURL = "https://api.darksky.net"
     static let key = "9c87420e4d83e34f0d7e8fba0c272c22"
     static let shared = DarkSkyAPI()

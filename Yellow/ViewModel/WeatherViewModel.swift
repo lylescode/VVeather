@@ -12,8 +12,6 @@ import CoreData
 import NotificationCenter
 
 
-fileprivate let ForecastUpdateTimeInterval: TimeInterval = 60 * 15
-
 typealias LocationResultsType = [WeatherLocation]
 typealias FetchLocationsHandlerType = (LocationResultsType) -> Void
 typealias DidChangeLocationHandlerType = ((type: NSFetchedResultsChangeType, location: WeatherLocation, indexPath: IndexPath?, newIndexPath: IndexPath?)) -> Void
@@ -102,11 +100,11 @@ final class WeatherViewModel: NSObject, WeatherViewModelType, WeatherViewModelIn
     
     // MARK: - Methods
     private func updateForecastIfNeeded(location: WeatherLocation) {
-        let timeIntervalSinceNow = location.forecastUpdatedDate?.timeIntervalSinceNow.magnitude ?? ForecastUpdateTimeInterval
-        if  ForecastUpdateTimeInterval <= timeIntervalSinceNow {
+        let timeIntervalSinceNow = location.forecastUpdatedDate?.timeIntervalSinceNow.magnitude ?? DarkSkyAPI.updateTimeInterval
+        if  DarkSkyAPI.updateTimeInterval <= timeIntervalSinceNow {
             updateForecast(location: location)
         } else {
-            scheduledUpdateForecast(location: location, timeInterval: ForecastUpdateTimeInterval - timeIntervalSinceNow)
+            scheduledUpdateForecast(location: location, timeInterval: DarkSkyAPI.updateTimeInterval - timeIntervalSinceNow)
         }
     }
     
@@ -130,7 +128,7 @@ final class WeatherViewModel: NSObject, WeatherViewModelType, WeatherViewModelIn
             
             guard let self = self else { return }
             DispatchQueue.main.async {
-                self.scheduledUpdateForecast(location: location, timeInterval: ForecastUpdateTimeInterval)
+                self.scheduledUpdateForecast(location: location, timeInterval: DarkSkyAPI.updateTimeInterval)
             }
         }
     }
