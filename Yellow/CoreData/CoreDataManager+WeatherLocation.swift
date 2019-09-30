@@ -20,7 +20,7 @@ extension CoreDataManager where ManagedObject == WeatherLocation {
     }
     
     private var locationLimitCount: Int {
-        return 11
+        return 20
     }
     
     func fetchedResultsController() -> NSFetchedResultsController<ManagedObject> {
