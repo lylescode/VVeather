@@ -10,6 +10,7 @@ import UIKit
 class OverviewViewController: UITableViewController {
     // MARK: - Properties
     public var viewModel: WeatherViewModelType? = WeatherViewModel()
+    private var presented = false
     
     deinit {
         print(Self.self, #function)
@@ -72,6 +73,8 @@ class OverviewViewController: UITableViewController {
     }
     // MARK: - Animations
     private func animateInitialCells() {
+        guard !presented else { return }
+        presented = true
         tableView.layoutIfNeeded()
         
         let cells = tableView.visibleCells.sorted(by: { $0.frame.minY < $1.frame.minY })
