@@ -42,6 +42,7 @@ class OverviewViewController: UITableViewController {
     private func bindViewModel(_ viewModel: WeatherViewModelType) {
         viewModel.outputs.fetchLocations { [weak self] result in
             self?.tableView.reloadData()
+            self?.animateInitialCells()
         }
         viewModel.outputs.didChangeLocation { [weak self] result in
             switch result.type {
@@ -66,6 +67,36 @@ class OverviewViewController: UITableViewController {
                     guard let overviewCell = $0 as? OverviewCell else { return }
                     overviewCell.updateTime()
                 }
+            }
+        }
+    }
+    // MARK: - Animations
+    private func animateInitialCells() {
+        tableView.layoutIfNeeded()
+        
+        let cells = tableView.visibleCells.sorted(by: { $0.frame.minY < $1.frame.minY })
+        let delayIncrease = 0.01
+        if cells.count > 0 {
+            view.isUserInteractionEnabled = false
+            let duration = 0.55
+            var delay = 0.0
+            for cell in cells {
+                let isLastCell = (cell == cells.last)
+                cell.transform = CGAffineTransform(translationX: 0, y: 400)
+                cell.alpha = 0
+                UIView.animate(withDuration: duration, delay: delay,
+                               usingSpringWithDamping: 0.85,
+                               initialSpringVelocity: 0.45,
+                               options: .curveEaseOut,
+                               animations: {
+                                cell.alpha = 1
+                                cell.transform = .identity
+                }, completion: { finished in
+                    if isLastCell {
+                        self.view.isUserInteractionEnabled = true
+                    }
+                })
+                delay += delayIncrease
             }
         }
     }
