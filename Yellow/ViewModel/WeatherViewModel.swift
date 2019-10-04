@@ -84,7 +84,8 @@ final class WeatherViewModel: NSObject, WeatherViewModelType, WeatherViewModelIn
         super.init()
 
         NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil, using: { [weak self] _ in
-            self?.fetchedLocations.forEach { self?.updateForecastIfNeeded(location: $0) }
+            self?.fetchCurrentLocation()
+            self?.locations.forEach { self?.updateForecastIfNeeded(location: $0) }
         })
     }
 
