@@ -141,7 +141,9 @@ class OverviewViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return indexPath.section == 0
+        guard let weatherLocation = viewModel?.outputs.fetchedLocations[indexPath.row],
+            indexPath.section == 0 else { return false }
+        return !weatherLocation.isCurrentLocation
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
