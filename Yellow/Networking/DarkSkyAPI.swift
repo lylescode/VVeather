@@ -13,7 +13,7 @@ enum APIEnvironment {
     case develop
 }
 
-struct DarkSkyAPI {
+enum DarkSkyAPI {
     // 날씨 정보는 15분 마다 갱신되도록
     static let updateTimeInterval: TimeInterval = 60 * 15
     static let baseURL = "https://api.darksky.net"
@@ -21,7 +21,7 @@ struct DarkSkyAPI {
     
     @discardableResult
     static func request(location: WeatherLocation, completion: @escaping (Result<Data, Error>) -> Void) -> Router<DarkSkyAPIEndPoint> {
-        request(latitude: location.latitude, longitude: location.longitude, completion: completion)
+        return request(latitude: location.latitude, longitude: location.longitude, completion: completion)
     }
     
     @discardableResult
@@ -38,7 +38,5 @@ struct DarkSkyAPI {
         }
         return router
     }
-
-    
 }
 
