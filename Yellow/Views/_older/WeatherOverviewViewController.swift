@@ -103,7 +103,7 @@ class WeatherOverviewViewController: UICollectionViewController {
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let locations = viewModel?.outputs.fetchedLocations.count ?? 0
+        let locations = viewModel?.outputs.locations.count ?? 0
         let numbersOfInSection = [locations, 1]
         return numbersOfInSection[section]
     }
@@ -113,7 +113,7 @@ class WeatherOverviewViewController: UICollectionViewController {
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: WeatherOverviewCell.self), for: indexPath) as! WeatherOverviewCell
             
-            let weatherLocation = viewModel?.outputs.fetchedLocations[indexPath.row]
+            let weatherLocation = viewModel?.outputs.locations[indexPath.row]
             cell.configure(indexPath: indexPath, location: weatherLocation)
             return cell
         } else {
@@ -165,7 +165,7 @@ class WeatherOverviewViewController: UICollectionViewController {
                     switch result {
                     case .success(let weatherLocation):
                         
-                        guard let index = self?.viewModel?.outputs.fetchedLocations.firstIndex(of: weatherLocation)
+                        guard let index = self?.viewModel?.outputs.locations.firstIndex(of: weatherLocation)
                         else { return }
                         self?.collectionView.scrollToItem(at: IndexPath(row: index, section: 0), at: .centeredVertically, animated: true)
                         

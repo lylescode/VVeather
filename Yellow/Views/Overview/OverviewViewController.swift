@@ -109,7 +109,7 @@ class OverviewViewController: UITableViewController {
         return 2
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let locations = viewModel?.outputs.fetchedLocations.count ?? 0
+        let locations = viewModel?.outputs.locations.count ?? 0
         let numbersOfInSection = [locations, 1]
         return numbersOfInSection[section]
     }
@@ -119,7 +119,7 @@ class OverviewViewController: UITableViewController {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "OverviewCell", for: indexPath) as? OverviewCell else {
                 fatalError()
             }
-            let weatherLocation = viewModel?.outputs.fetchedLocations[indexPath.row]
+            let weatherLocation = viewModel?.outputs.locations[indexPath.row]
             cell.configure(indexPath: indexPath, location: weatherLocation)
             return cell
         } else {
@@ -141,7 +141,7 @@ class OverviewViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        guard let weatherLocation = viewModel?.outputs.fetchedLocations[indexPath.row],
+        guard let weatherLocation = viewModel?.outputs.locations[indexPath.row],
             indexPath.section == 0 else { return false }
         return !weatherLocation.isCurrentLocation
     }
@@ -183,7 +183,7 @@ class OverviewViewController: UITableViewController {
                     switch result {
                     case .success(let weatherLocation):
                         
-                        guard let index = self?.viewModel?.outputs.fetchedLocations.firstIndex(of: weatherLocation)
+                        guard let index = self?.viewModel?.outputs.locations.firstIndex(of: weatherLocation)
                         else { return }
                         self?.tableView.scrollToRow(at: IndexPath(row: index, section: 0), at: .middle, animated: true)
                         

@@ -25,7 +25,7 @@ protocol WeatherViewModelInputs {
 }
 
 protocol WeatherViewModelOutputs {
-    var fetchedLocations: LocationResultsType { get }
+    var locations: LocationResultsType { get }
     func updateTimes(_ updatehandler: @escaping () -> Void)
     func fetchLocations(_ updateHandler: @escaping FetchLocationsHandlerType)
     func didChangeLocation(_ updateHandler: @escaping DidChangeLocationHandlerType)
@@ -214,7 +214,7 @@ final class WeatherViewModel: NSObject, WeatherViewModelType, WeatherViewModelIn
     }
     
     // MARK: - Outputs
-    var fetchedLocations: LocationResultsType {
+    var locations: LocationResultsType {
         return fetchedResultsController.fetchedObjects ?? []
     }
     func updateTimes(_ updatehandler: @escaping () -> Void) {

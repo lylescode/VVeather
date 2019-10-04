@@ -89,12 +89,12 @@ class WeatherViewController: UIViewController {
 // MARK: - UICollectionViewDataSource
 extension WeatherViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel?.outputs.fetchedLocations.count ?? 0
+        return viewModel?.outputs.locations.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: WeatherCell.self), for: indexPath) as! WeatherCell
-        let weatherLocation = viewModel?.outputs.fetchedLocations[indexPath.row]
+        let weatherLocation = viewModel?.outputs.locations[indexPath.row]
         cell.configure(location: weatherLocation)
         return cell
     }
