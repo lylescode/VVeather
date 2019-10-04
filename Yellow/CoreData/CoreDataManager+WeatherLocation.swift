@@ -129,6 +129,8 @@ extension CoreDataManager where ManagedObject == WeatherLocation {
             return
         }
         let weatherLocation = fetchedResultsController.object(at: IndexPath(row: index, section: 0))
+        guard !weatherLocation.isCurrentLocation else { return }
+        
         context.delete(weatherLocation)
         fetchedObjects.remove(at: index)
         
