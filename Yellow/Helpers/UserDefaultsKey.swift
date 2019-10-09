@@ -8,6 +8,6 @@
 
 import Foundation
 
-struct UserDefaultsKey {
+enum UserDefaultsKey {
     static let UnitTemperatureSymbol = "UnitTemperatureSymbol"
 }

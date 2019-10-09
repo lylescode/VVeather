@@ -10,7 +10,7 @@ import UIKit
 
 
 final class WeatherCell: UICollectionViewCell {
-    private struct Constant {
+    private enum Constant {
         static let TopHeight: CGFloat = 400
         static let TopMinHeight: CGFloat = 160
         

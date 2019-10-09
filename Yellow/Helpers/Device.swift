@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct Device {
+enum Device {
     static var window: UIWindow {
         let window = UIApplication.shared.delegate?.window ?? UIApplication.shared.keyWindow
         assert(window != nil, "keyWindow not found")
