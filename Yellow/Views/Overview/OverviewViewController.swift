@@ -104,6 +104,16 @@ class OverviewViewController: UITableViewController {
         }
     }
     
+    // MARK: - Methods
+    private func location(canEditRowAt indexPath: IndexPath) -> Bool {
+        guard indexPath.section == 0,
+            let locations = viewModel?.outputs.locations
+        else { return false }
+        
+        let weatherLocation = locations[indexPath.row]
+        return !weatherLocation.isCurrentLocation
+    }
+    
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
@@ -141,9 +151,7 @@ class OverviewViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        guard let weatherLocation = viewModel?.outputs.locations[indexPath.row],
-            indexPath.section == 0 else { return false }
-        return !weatherLocation.isCurrentLocation
+        return location(canEditRowAt: indexPath)
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -154,7 +162,7 @@ class OverviewViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        return indexPath.section == 0
+        return location(canEditRowAt: indexPath)
     }
     
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
