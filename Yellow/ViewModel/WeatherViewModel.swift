@@ -82,15 +82,14 @@ final class WeatherViewModel: NSObject, WeatherViewModelType, WeatherViewModelIn
     override init() {
         super.init()
 
-        NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil, using: { [weak self] _ in
-            guard let locationsCount = self?.locations.count, locationsCount > 0 else { return }
+        NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: nil, using: { [weak self] _ in
             self?.fetchCurrentLocation()
             self?.locations.forEach { self?.updateForecastIfNeeded(location: $0) }
         })
     }
 
     deinit {
-        NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.willEnterForegroundNotification, object: nil)
         timerState = .suspended
         for (_, scheduledTimer) in forecastUpdateTimers {
             scheduledTimer.invalidate()
