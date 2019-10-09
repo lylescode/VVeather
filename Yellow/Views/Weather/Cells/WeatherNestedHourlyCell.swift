@@ -12,6 +12,7 @@ class WeatherNestedHourlyCell: UICollectionViewCell, WeatherForecastPointTypeCel
 
     @IBOutlet weak var iconView: UIImageView!
     @IBOutlet weak var hourLabel: UILabel!
+    @IBOutlet weak var precipProbabilityLabel: UILabel!
     @IBOutlet weak var temperatureLabel: UILabel!
     
     override func awakeFromNib() {
@@ -37,8 +38,17 @@ class WeatherNestedHourlyCell: UICollectionViewCell, WeatherForecastPointTypeCel
             hourLabel.text = formatter.string(from: Date(timeIntervalSince1970: forecastPoint.time)) + "시"
         }
         
+        if let precipProbability = forecastPoint.precipProbability,
+            precipProbability > 0.3 {
+            precipProbabilityLabel.text = "\(Int(precipProbability * 10) * 10)%"
+        } else {
+            precipProbabilityLabel.text = ""
+        }
+        
         if let icon = forecastPoint.icon {
             iconView.image = UIImage(named: icon)?.withRenderingMode(.alwaysTemplate)
+        } else {
+            iconView.image = nil
         }
         
         let temperature = WeatherUnit(temperature: forecastPoint.temperature)
