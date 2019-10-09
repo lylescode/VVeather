@@ -91,7 +91,7 @@ final class WeatherViewModel: NSObject, WeatherViewModelType, WeatherViewModelIn
 
     deinit {
         NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
-        timer.cancel()
+        timerState = .suspended
         for (_, scheduledTimer) in forecastUpdateTimers {
             scheduledTimer.invalidate()
         }
