@@ -6,7 +6,6 @@
 //  Copyright © 2019 Yellow. All rights reserved.
 //
 
-import Foundation
 import MapKit
 import CoreData
 import NotificationCenter
@@ -84,6 +83,7 @@ final class WeatherViewModel: NSObject, WeatherViewModelType, WeatherViewModelIn
         super.init()
 
         NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil, using: { [weak self] _ in
+            guard let locationsCount = self?.locations.count, locationsCount > 0 else { return }
             self?.fetchCurrentLocation()
             self?.locations.forEach { self?.updateForecastIfNeeded(location: $0) }
         })
