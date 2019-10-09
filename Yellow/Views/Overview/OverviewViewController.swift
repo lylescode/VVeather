@@ -210,7 +210,7 @@ class OverviewViewController: UITableViewController {
                 weatherViewController.selectedIndexPath = selectedIndexPath
             }
             
-            weatherViewController.viewModel = self.viewModel
+            weatherViewController.viewModel = WeatherViewModel()
             weatherViewController.didComplete = { [weak self] indexPath in
                 self?.tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
                 

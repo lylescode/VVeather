@@ -48,14 +48,14 @@ final class SearchAddressViewModel: NSObject, SearchAddressViewModelType, Search
     // MARK: - Properties
     lazy private var searchCompleter = MKLocalSearchCompleter()
     lazy private var dataManager = CoreDataManager<WeatherLocation>()
-    lazy private var updateHandlers: [SearchAddressStatusHandlerType] = []
+    lazy private var updateHandlers = [SearchAddressStatusHandlerType]()
     private var status: SearchAddressStatusType = .initial {
         willSet {
             guard newValue != status else { return }
             updateHandlers.forEach { $0(newValue) }
         }
     }
-    private var results: [SearchAddressResultType] = [] {
+    private var results = [SearchAddressResultType]() {
         didSet {
             if results.isEmpty {
                 status = searchCompleter.queryFragment.isEmpty ?

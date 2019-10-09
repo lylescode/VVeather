@@ -49,10 +49,10 @@ final class WeatherViewModel: NSObject, WeatherViewModelType, WeatherViewModelIn
         return fetchedResultsController
     }()
     
-    lazy private var forecastUpdateTimers: [String: Timer] = [:]
-    lazy private var timeUpdateHandlers: [() -> Void] = []
-    lazy private var locationUpdateHandlers: [FetchLocationsHandlerType] = []
-    lazy private var locationChangeHandlers: [DidChangeLocationHandlerType] = []
+    private var forecastUpdateTimers = [String: Timer]()
+    private var timeUpdateHandlers = [() -> Void]()
+    private var locationUpdateHandlers = [FetchLocationsHandlerType]()
+    private var locationChangeHandlers = [DidChangeLocationHandlerType]()
     
     private var timerInterval: TimeInterval = 1
     private enum TimerState {

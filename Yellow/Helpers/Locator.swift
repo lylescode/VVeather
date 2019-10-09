@@ -25,7 +25,7 @@ final class Locator: NSObject {
     
     static let shared = Locator()
     
-    private var completionHandlers: [CLLocationCompletionHandler] = []
+    private var completionHandlers = [CLLocationCompletionHandler]()
     private var authorizationCompletionHandler: AuthorizationCompletionHandler?
     
     lazy private var locationManager: CLLocationManager = {

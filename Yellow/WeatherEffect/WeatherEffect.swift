@@ -194,7 +194,7 @@ class WeatherEffect: UIView {
     }
     
     fileprivate func emitterCells() -> [CAEmitterCell] {
-        var cells: [CAEmitterCell] = []
+        var cells = [CAEmitterCell]()
         let count = emitterStyle.count
         for _ in 0..<count {
             cells.append(emitterCell())
