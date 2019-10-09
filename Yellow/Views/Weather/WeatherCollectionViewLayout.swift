@@ -41,7 +41,7 @@ class WeatherCollectionViewLayout: UICollectionViewFlowLayout {
         return CGSize(width: collectionViewSize.width, height: contentHeight)
     }
     private var pageWidth: CGFloat {
-        return itemSize.width + minimumLineSpacing
+        return itemSize.width + minimumInteritemSpacing
     }
     
     override var collectionViewContentSize: CGSize {
@@ -69,7 +69,7 @@ class WeatherCollectionViewLayout: UICollectionViewFlowLayout {
         
         scrollDirection = .horizontal
         itemSize = cellSize
-        minimumLineSpacing = 30
+        minimumInteritemSpacing = 30
         collectionView.decelerationRate = .fast
         
         let collectionWidth = collectionView.bounds.width
@@ -84,8 +84,7 @@ class WeatherCollectionViewLayout: UICollectionViewFlowLayout {
             // 기기 회전시 paging 처리
             let targetOffset: CGPoint
             let contentOffset: CGPoint
-            contentOffset = CGPoint(x: (itemSize.width * CGFloat(currentPage)) - contentInset.left, y: collectionView.contentOffset.y)
-            
+            contentOffset = CGPoint(x: layoutAttributes[currentPage].frame.minX, y: collectionView.contentOffset.y)
             if collectionView.isPagingEnabled {
                 targetOffset = CGPoint(x: ceil(contentOffset.x / itemSize.width) * itemSize.width, y: contentOffset.y)
             } else {
@@ -143,7 +142,6 @@ class WeatherCollectionViewLayout: UICollectionViewFlowLayout {
     override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
         guard layoutAttributes.count > 0, let collectionView = self.collectionView else { return .zero }
         
-        let pageWidth = itemSize.width + minimumLineSpacing
         var normalizedProposedOffset = proposedContentOffset
 
         let currentPageX = pageWidth * CGFloat(currentPage)
@@ -187,7 +185,7 @@ class WeatherCollectionViewLayout: UICollectionViewFlowLayout {
             currentPage = 0
             return
         }
-        currentPage = Int((offset.x + collectionView.contentInset.left) / itemSize.width)
+        currentPage = Int((offset.x + collectionView.contentInset.left) / pageWidth)
         layoutDelegate?.collectionView(collectionView, currentPage: currentPage)
     }
     
