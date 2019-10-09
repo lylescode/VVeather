@@ -54,7 +54,7 @@ class OverviewViewController: UITableViewController {
                 guard let indexPath = result.indexPath else { return }
                 self?.tableView.deleteRows(at: [IndexPath(row: indexPath.row, section: 0)], with: .automatic)
             case .update:
-                guard let indexPath = result.indexPath,
+                guard let indexPath = result.newIndexPath,
                     let cell = self?.tableView.cellForRow(at: IndexPath(row: indexPath.row, section: 0)) as? OverviewCell else
                 { return }
                 cell.updateLocation(location: result.location)
